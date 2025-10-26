@@ -17,13 +17,13 @@ export default function Home() {
             {/* Header */}
             <Header resetChat={resetChat} />
             {/* container mx-auto  h-[calc(100vh-140px)] */}
-            <div className="">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full px-4 py-10">
+            <div className="h-[calc(100vh-100px)]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full md:px-4 md:pt-10">
                     {/* Chat Panel */}
                     <ChatBox messages={messages} isLoading={isLoading} sendMessage={sendMessage} />
 
                     {/* Results Panel */}
-                    <div className="flex flex-col gap-6 h-full overflow-auto">
+                    <div className="hidden lg:flex  flex-col gap-6 h-full overflow-auto">
                         {/* Map */}
                         {tripData && (
                             <Card className="h-[300px] shrink-0 overflow-hidden border-border">

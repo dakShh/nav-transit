@@ -42,7 +42,7 @@ export default function ChatBox({
                 <h2 className="font-semibold text-foreground">Chat Assistant</h2>
             </div> */}
             {/* flex-1 min-h-0 max- */}
-            <ScrollArea className="h-[75vh]  ">
+            <ScrollArea className="h-full">
                 <div className="p-4">
                     {messages.map((message) => (
                         <ChatMessage key={message.id} message={message} />
