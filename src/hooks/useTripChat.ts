@@ -28,7 +28,33 @@ export function useTripChat(apiKey?: string) {
             setIsLoading(true);
 
             try {
-                // Parse locations from message
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [...messages, userMessage], // Send all messages including the new user message
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const assistantMessage: Message = {
+                    id: (Date.now() + 1).toString(),
+                    role: 'assistant',
+                    content: data.message || 'I received your message!',
+                    timestamp: new Date(),
+                };
+
+                setMessages((prev) => [...prev, assistantMessage]);
+
+                if (data.tripData) {
+                    setTripData(data.tripData);
+                }
             } catch (error) {
                 const assistantMessage: Message = {
                     id: (Date.now() + 1).toString(),
