@@ -1,5 +1,7 @@
 import { Message } from '@/types/trip';
 
+import { Streamdown } from 'streamdown';
+import { Response } from '@/components/ui/shadcn-io/ai/response';
 // Icons
 import { Bot, User } from 'lucide-react';
 
@@ -24,7 +26,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
                         : 'bg-card border border-border text-card-foreground shadow-sm'
                 }`}
             >
-                <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                    <Response>{message.content}</Response>
+                </p>
                 <span className="text-xs opacity-70 mt-1 block">
                     12:40 pm
                     {/* {new Date(message.timestamp).toLocaleTimeString([], {
