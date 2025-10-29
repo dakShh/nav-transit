@@ -13,7 +13,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
     const isUser = message.role === 'user';
 
     return (
-        <div className={`flex gap-3 mb-4 ${isUser ? 'justify-end' : 'justify-start'}`}>
+        <div className={`flex gap-3 mb-4 overflow-hidden ${isUser ? 'justify-end' : 'justify-start'}`}>
             {!isUser && (
                 <div className="w-8 h-8 rounded-full bg-linear-to-br from-primary to-accent flex items-center justify-center shrink-0">
                     <Bot className="w-5 h-5 text-primary-foreground" />
@@ -26,16 +26,15 @@ export function ChatMessage({ message }: ChatMessageProps) {
                         : 'bg-card border border-border text-card-foreground shadow-sm'
                 }`}
             >
-                <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                    <Response>{message.content}</Response>
-                </p>
-                <span className="text-xs opacity-70 mt-1 block">
+                {/* <Response className="w-full">{message.content}</Response> */}
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                <div className="text-xs opacity-70 mt-1">
                     12:40 pm
                     {/* {new Date(message.timestamp).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
                     })} */}
-                </span>
+                </div>
             </div>
             {isUser && (
                 <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shrink-0">

@@ -7,8 +7,9 @@ export function useTripChat(apiKey?: string) {
         {
             id: '1',
             role: 'assistant',
-            content:
-                "Hi! I'm your trip planning assistant. Tell me where you'd like to go, and I'll help you find the best way to get there.\n\nFor example: 'I need to get from Times Square to JFK Airport'",
+            content: `Hi! I'm your trip planning assistant. Tell me where you'd like to go, and I'll help you find the best way to get there.
+
+For example: 'I need to get from Times Square to JFK Airport'`,
             timestamp: new Date('Sun Oct 26 2025 16:36:51 GMT-0400 (Eastern Daylight Time)'),
         },
     ]);
