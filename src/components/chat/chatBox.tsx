@@ -1,17 +1,20 @@
 'use client';
 
-import { Send, Sparkles } from 'lucide-react';
-import { Card } from '../ui/card';
+// Core
+import { useState } from 'react';
+
+// Icon
+import { Send } from 'lucide-react';
+
+// Components
 import { ScrollArea } from '../ui/scroll-area';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-
-import { useTripChat } from '@/hooks/useTripChat';
 import { ChatMessage } from './chatMessages';
-import { useState } from 'react';
-
-import { Message, TripData } from '@/types/trip';
 import ChatLoader from '../custom/chatLoader';
+
+// Types
+import { Message } from '@/types/trip';
 
 export default function ChatBox({
     messages,
@@ -29,12 +32,6 @@ export default function ChatBox({
         sendMessage(input);
         setInput('');
     };
-
-    const examplePrompts = [
-        'From Times Square to JFK Airport',
-        'From Central Park to Brooklyn Bridge',
-        'From Empire State Building to Statue of Liberty',
-    ];
 
     return (
         <div className="flex flex-col">
