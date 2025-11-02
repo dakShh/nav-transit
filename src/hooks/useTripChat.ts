@@ -1,15 +1,12 @@
 import { useState, useCallback } from 'react';
 import { Message, TripData } from '@/types/trip';
-import { parseLocations, geocodeLocation, calculateRoutes } from '@/lib/locationParser';
 
-export function useTripChat(apiKey?: string) {
+export function useTripChat(API: string) {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
             role: 'assistant',
-            content: `Hi! I'm your trip planning assistant. Tell me where you'd like to go, and I'll help you find the best way to get there.
-
-For example: 'I need to get from Times Square to JFK Airport'`,
+            content: `Hi! I'm your trip planning assistant. Tell me where you'd like to go, and I'll help you find the best way to get there.`,
             timestamp: new Date('Sun Oct 26 2025 16:36:51 GMT-0400 (Eastern Daylight Time)'),
         },
     ]);
@@ -29,7 +26,7 @@ For example: 'I need to get from Times Square to JFK Airport'`,
             setIsLoading(true);
 
             try {
-                const response = await fetch('/api/chat', {
+                const response = await fetch(API, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -44,10 +41,11 @@ For example: 'I need to get from Times Square to JFK Airport'`,
                 }
 
                 const data = await response.json();
+
                 const assistantMessage: Message = {
                     id: (Date.now() + 1).toString(),
                     role: 'assistant',
-                    content: data.message || 'I received your message!',
+                    content: data.response || 'I received your message!',
                     timestamp: new Date(),
                 };
 
@@ -68,7 +66,7 @@ For example: 'I need to get from Times Square to JFK Airport'`,
                 setIsLoading(false);
             }
         },
-        [apiKey]
+        ['']
     );
 
     const resetChat = useCallback(() => {

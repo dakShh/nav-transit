@@ -11,7 +11,7 @@ import { ScrollArea } from '../ui/scroll-area';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { ChatMessage } from './chatMessages';
-import ChatLoader from '../custom/chatLoader';
+import ChatLoader from '../custom/loaders/chatLoader';
 
 // Types
 import { Message } from '@/types/trip';

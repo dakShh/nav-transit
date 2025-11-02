@@ -10,7 +10,7 @@ export default function Header({ resetChat }: { resetChat: () => void }) {
                         <MapPin className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-foreground">TripPlanner AI</h1>
+                        <h1 className="text-xl font-bold text-foreground">WayTransit</h1>
                         <p className="text-xs text-muted-foreground">Your journey companion</p>
                     </div>
                 </div>

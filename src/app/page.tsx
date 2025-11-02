@@ -8,9 +8,13 @@ import { useTripChat } from '@/hooks/useTripChat';
 // Icons
 import { MapPin } from 'lucide-react';
 import ChatBox from '@/components/chat/chatBox';
+import WayTransitMap from '@/components/map/wayTransitMap';
+
+const BASIC_LLM_CHAT = '/api/chat';
+const AGENT_LLM_CHAT = '/api/maps-agent';
 
 export default function Home() {
-    const { messages, tripData, isLoading, sendMessage, resetChat } = useTripChat('');
+    const { messages, tripData, isLoading, sendMessage, resetChat } = useTripChat(AGENT_LLM_CHAT);
 
     return (
         <div className="min-h-screen bg-linear-to-br from-background via-background to-muted">
@@ -18,23 +22,16 @@ export default function Home() {
             <Header resetChat={resetChat} />
             {/* container mx-auto  h-[calc(100vh-140px)] */}
             <div className="h-[calc(100vh-100px)]">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full md:px-4 md:pt-10">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full md:px-4 md:pt-5">
                     {/* Chat Panel */}
                     <ChatBox messages={messages} isLoading={isLoading} sendMessage={sendMessage} />
 
                     {/* Results Panel */}
-                    <div className="hidden lg:flex  flex-col gap-6 h-full overflow-auto">
+                    <div className="hidden lg:flex lg:col-span-2 flex-col gap-6 h-full overflow-auto">
                         {/* Map */}
-                        {tripData && (
-                            <Card className="h-[300px] shrink-0 overflow-hidden border-border">
-                                {/* <TripMap
-                                    origin={tripData.originCoords}
-                                    destination={tripData.destinationCoords}
-                                    apiKey={apiKey}
-                                /> */}
-                                tripmap
-                            </Card>
-                        )}
+                        <div className="h-full border border-border rounded-2xl overflow-hidden">
+                            <WayTransitMap />
+                        </div>
 
                         {/* Transport Options */}
                         {tripData && (
@@ -51,7 +48,7 @@ export default function Home() {
                             </div>
                         )}
 
-                        {!tripData && (
+                        {tripData && (
                             <Card className="flex-1 flex items-center justify-center p-8 border-border bg-muted/30">
                                 <div className="text-center">
                                     <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-linear-to-br from-primary to-accent flex items-center justify-center">
