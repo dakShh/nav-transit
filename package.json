@@ -43,6 +43,7 @@
         "@radix-ui/react-use-controllable-state": "^1.2.2",
         "@react-google-maps/api": "^2.20.7",
         "@shikijs/transformers": "^3.14.0",
+        "@vis.gl/react-google-maps": "^1.7.0",
         "ai": "^5.0.83",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",

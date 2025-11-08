@@ -35,7 +35,7 @@ export default function ChatBox({
 
     return (
         <div className="flex flex-col">
-            <ScrollArea className="h-full">
+            <ScrollArea className="h-full max-h-[calc(100vh-170px)]">
                 <div className="p-4">
                     {messages.map((message) => (
                         <ChatMessage key={message.id} message={message} />

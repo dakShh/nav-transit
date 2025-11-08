@@ -11,7 +11,6 @@ interface ChatMessageProps {
 
 export function ChatMessage({ message }: ChatMessageProps) {
     const isUser = message.role === 'user';
-    console.log('message: ', message.content);
 
     return (
         <div className={`flex gap-3 mb-4 overflow-hidden ${isUser ? 'justify-end' : 'justify-start'}`}>
