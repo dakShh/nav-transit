@@ -6,25 +6,30 @@ import { useTripChat } from '@/hooks/useTripChat';
 
 // Icons
 import ChatBox from '@/components/chat/chatBox';
+
+// Maps integration
+import TransitMap from '@/components/map/transitMap';
 // import WayTransitMap from '@/components/map/wayTransitMap';
-import DirectionsMap from '@/components/map/directionsMap';
+// import DirectionsMap from '@/components/map/directionsMap';
+
+// Context
+import { useUser } from '@/lib/contexts/userContext';
+
+// Utils
+import { cn } from '@/lib/utils';
 
 const BASIC_LLM_CHAT = '/api/chat';
 const AGENT_LLM_CHAT = '/api/maps-agent';
 
 export default function Home() {
-    const { messages, tripData, isLoading, sendMessage, resetChat } = useTripChat(AGENT_LLM_CHAT);
+    // const { messages, tripData, isLoading, sendMessage, resetChat } = useTripChat(AGENT_LLM_CHAT);
+    const { user } = useUser();
 
     return (
         <div className="min-h-screen bg-linear-to-br from-background via-background to-muted">
-            {/* Header */}
-            <Header resetChat={resetChat} />
-            {/* container mx-auto  h-[calc(100vh-140px)] */}
-            <div className="h-[calc(100vh-100px)]">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full md:px-4 md:pt-5">
-                    <ChatBox messages={messages} isLoading={isLoading} sendMessage={sendMessage} />
-                    <DirectionsMap />
-                </div>
+            <div className={cn('h-screen max-w-[390px] mx-auto border shadow-xl', 'p-4')}>
+                <TransitMap user={user} />
+                {/* <ChatBox messages={messages} isLoading={isLoading} sendMessage={sendMessage} /> */}
             </div>
         </div>
     );
