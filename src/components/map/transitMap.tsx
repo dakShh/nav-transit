@@ -30,6 +30,7 @@ export default function TransitMap({ user }: { user: User | null }) {
                             defaultZoom={11}
                             gestureHandling={'greedy'}
                             fullscreenControl={false}
+                            disableDefaultUI
                         >
                             {user?.location && <Marker position={user.location} />}
                         </Map>
