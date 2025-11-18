@@ -7,11 +7,12 @@ import { mode, Stop } from '@/lib/db/db';
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 export const CustomAdvancedMarker = ({ position, stop }: { position: Location; stop: Stop }) => {
     const [clicked, setClicked] = useState(false);
     const [hovered, setHovered] = useState(false);
-
+    const router = useRouter();
     // const renderCustomPin = () => {
     //     return (
     //         <div className="h-[34px] w-fit max-w-[34px] relative p-4  flex justify-center items-center rounded-full ">
@@ -27,6 +28,10 @@ export const CustomAdvancedMarker = ({ position, stop }: { position: Location; s
         streetcar: 'bg-green-500',
     } as Record<mode, string>;
 
+    function handleClick() {
+        router.push(`/stop/${stop.stop_id}`);
+    }
+
     return (
         <>
             <AdvancedMarker
@@ -34,7 +39,7 @@ export const CustomAdvancedMarker = ({ position, stop }: { position: Location; s
                 title={'AdvancedMarker with custom html content.'}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
-                onClick={() => setClicked(!clicked)}
+                onClick={() => handleClick()}
             >
                 <Tooltip>
                     <TooltipTrigger asChild>
