@@ -24,7 +24,6 @@ const AGENT_LLM_CHAT = '/api/maps-agent';
 export default function Home() {
     // const { messages, tripData, isLoading, sendMessage, resetChat } = useTripChat(AGENT_LLM_CHAT);
     const { user } = useUser();
-
     return (
         <div className="min-h-screen bg-linear-to-br from-background via-background to-muted">
             <div className={cn('h-screen max-w-[390px] mx-auto border shadow-xl', 'p-4')}>
