@@ -37,7 +37,7 @@ export async function GET(eq: Request, { params }: { params: Promise<{ stop_id: 
     WHERE st.stop_id = $1
       AND st.arrival_time > TO_CHAR(NOW()::time, 'HH24:MI:SS')
     ORDER BY st.arrival_time
-    LIMIT 20;
+    LIMIT 3;
   `;
 
     const { rows: departures } = await pool.query(upcomingQuery, [stopId]);
@@ -115,7 +115,7 @@ export async function GET(eq: Request, { params }: { params: Promise<{ stop_id: 
     // routes: Array.from(routesMap.values())
     return NextResponse.json({
         stop,
-        departures,
+        departures: schedules,
         routes: [],
     });
 }
