@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Stop } from '@/lib/db/db';
 import { CustomAdvancedMarker } from './customAdvMarker';
 import { fetchNearbyStops } from '@/lib/queries/serverFunctions';
+import { cn } from '@/lib/utils';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 const DEFAULT_MAP_COORDINATES = {
@@ -43,12 +44,17 @@ export default function TransitMap({ user }: { user: User | null }) {
                 </div>
             )}
             {(isGettingLocation && <WayTransitMapLoader />) || (
-                <div className="h-full border border-border rounded-2xl overflow-hidden">
+                <div
+                    className={cn(
+                        'max-h-[55vh]',
+                        'h-full border border-border rounded-2xl overflow-hidden'
+                    )}
+                >
                     <APIProvider apiKey={API_KEY} onError={(error) => console.error('map error: ', error)}>
                         <Map
                             mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID! as string}
                             defaultCenter={user?.location || DEFAULT_MAP_COORDINATES}
-                            defaultZoom={17}
+                            defaultZoom={18}
                             gestureHandling={'greedy'}
                             fullscreenControl={false}
                             disableDefaultUI

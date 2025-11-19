@@ -26,7 +26,7 @@ export default function Home() {
     const { user } = useUser();
     return (
         <div className="min-h-screen bg-linear-to-br from-background via-background to-muted">
-            <div className={cn('h-screen max-w-[390px] mx-auto border shadow-xl', 'p-4')}>
+            <div className={cn('h-screen  mx-auto border shadow-xl', 'p-4', 'bg-white')}>
                 <TransitMap user={user} />
                 {/* <ChatBox messages={messages} isLoading={isLoading} sendMessage={sendMessage} /> */}
             </div>

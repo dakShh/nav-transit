@@ -83,32 +83,33 @@ export default function ScheduleCard({
     return (
         <div
             onClick={() => handleScheduleClick()}
-            className="border rounded-lg p-4 shadow-sm flex justify-between items-center"
+            className="border rounded-lg p-4 shadow-md bg-neutral-300 flex flex-col justify-between"
         >
-            <div>
-                <p className="text-lg font-bold flex items-center gap-2">
+            <div className="gap-x-2">
+                <p className="text-lg font-bold flex w-[100px] items-center gap-2">
                     {getModeIcon(upcomingDeparture.route_type)} {upcomingDeparture.route_short_name}
                 </p>
-                <p className="text-gray-600">{upcomingDeparture.trip_headsign}</p>
-
-                {(loadingRemainingStops && (
-                    <div className="mt-2 py-3 px-2">
-                        <MapLoader />
-                    </div>
-                )) ||
-                    remainingStops.map((stop, idx) => (
-                        <RemainingStops
-                            key={idx}
-                            stopName={stop.stop_name}
-                            stopArrivalTime={stop.arrival_time}
-                        />
-                    ))}
+                <p className="text-neutral-600 font-bold max-w-[80%]">{upcomingDeparture.trip_headsign}</p>
             </div>
 
-            <div className="text-right">
-                <p className="text-lg font-semibold">{formatTime(upcomingDeparture.arrival_time)}</p>
-                <p className="text-gray-500 text-sm">Departure</p>
-                {countdown && <p className="text-blue-600 font-medium text-sm mt-1">{countdown}</p>}
+            {(loadingRemainingStops && (
+                <div className="mt-2 py-3 px-2">
+                    <MapLoader />
+                </div>
+            )) ||
+                remainingStops.map((stop, idx) => (
+                    <RemainingStops
+                        key={idx}
+                        stopName={stop.stop_name}
+                        stopArrivalTime={stop.arrival_time}
+                    />
+                ))}
+
+            <div className="text-right flex justify-end gap-x-2">
+                {/* <p className="text-lg font-semibold">{formatTime(upcomingDeparture.arrival_time)}</p> */}
+                <p className="text-gray-500 text-sm w-fit flex items-center gap-x-1 justify-end">
+                    {countdown && <p className="text-blue-400 font-medium text-xl  mt-1">{countdown}</p>}
+                </p>
             </div>
         </div>
     );

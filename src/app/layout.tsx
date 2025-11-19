@@ -5,6 +5,7 @@ import './globals.css';
 // context
 import { UserProvider } from '@/lib/contexts/userContext';
 import { useUserLocation } from '@/hooks/useUserLocation';
+import { cn } from '@/lib/utils';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -24,7 +25,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+            <body
+                className={cn(
+                    'max-w-sm mx-auto',
+                    `${geistSans.variable} ${geistMono.variable} antialiased`
+                )}
+            >
                 <UserProvider>{children}</UserProvider>
             </body>
         </html>
