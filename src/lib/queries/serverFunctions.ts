@@ -6,6 +6,7 @@ import {
     getStopInfo,
     getUpcomingDepartures,
     getRemainingStopsForTrip,
+    getTripsByStopId,
 } from './sqlQueries';
 
 /**
@@ -92,6 +93,19 @@ export const fetchSchedules = async (stopId: string, limit: number = 3) => {
             stop,
             upcomingDepartures: upcomingDepartures || [],
             routes: [],
+        };
+    } catch (error) {
+        console.log('Error fetching schedules: ', error);
+        throw error;
+    }
+};
+
+export const fetchStops = async (stopId: number) => {
+    try {
+        const trips = await getTripsByStopId(stopId);
+
+        return {
+            trips,
         };
     } catch (error) {
         console.log('Error fetching schedules: ', error);

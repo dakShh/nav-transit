@@ -102,3 +102,24 @@ export async function getRemainingStopsForTrip(tripId: string) {
     const { rows } = await pool.query(query, [tripId]);
     return rows;
 }
+
+export async function getTripsByStopId(stopId: number) {
+    const query = `
+          SELECT
+            st.trip_id,
+            st.departure_time,
+            r.route_short_name,
+            t.direction_id,
+            t.trip_headsign
+          FROM stop_times st
+          JOIN trips t ON st.trip_id = t.trip_id
+          JOIN routes r ON t.route_id = r.route_id
+          WHERE st.stop_id = $1
+            AND st.departure_time >= CURRENT_TIME
+          ORDER BY st.departure_time
+          LIMIT 20;
+        `;
+
+    const { rows } = await pool.query(query, [stopId]);
+    return rows;
+}

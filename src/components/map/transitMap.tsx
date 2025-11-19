@@ -37,7 +37,7 @@ export default function TransitMap({ user }: { user: User | null }) {
     }, [user?.location]);
 
     return (
-        <div className="relative lg:flex lg:col-span-2 flex-col gap-6 h-full overflow-auto">
+        <div className="relative lg:flex lg:col-span-2 flex-col gap-6 h-[55vh] overflow-auto">
             {locationError && (
                 <div className="absolute z-50 top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-3xl text-sm">
                     {locationError}
@@ -45,10 +45,7 @@ export default function TransitMap({ user }: { user: User | null }) {
             )}
             {(isGettingLocation && <WayTransitMapLoader />) || (
                 <div
-                    className={cn(
-                        'max-h-[55vh]',
-                        'h-full border border-border rounded-2xl overflow-hidden'
-                    )}
+                    className={cn('max-h-full', 'h-full border border-border rounded-2xl overflow-hidden')}
                 >
                     <APIProvider apiKey={API_KEY} onError={(error) => console.error('map error: ', error)}>
                         <Map
