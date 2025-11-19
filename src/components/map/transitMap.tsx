@@ -1,4 +1,4 @@
-import { APIProvider, Map, Marker, AdvancedMarker } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 import MapLoader from '../custom/loaders/mapLoader';
 
 import { User } from '@/types/user';
@@ -6,6 +6,7 @@ import { useUserLocation } from '@/hooks/useUserLocation';
 import { useEffect, useState } from 'react';
 import { Stop } from '@/lib/db/db';
 import { CustomAdvancedMarker } from './customAdvMarker';
+import { fetchNearbyStops } from '@/lib/queries/serverFunctions';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 const DEFAULT_MAP_COORDINATES = {
@@ -18,20 +19,19 @@ export default function TransitMap({ user }: { user: User | null }) {
     const [nearbyStop, setNearbyStops] = useState<Stop[]>([]);
 
     useEffect(() => {
-        const fetchNearbyStops = async () => {
-            try {
-                const response = await fetch(
-                    `/api/stops/nearby?lat=${user?.location?.lat}&lon=${user?.location?.lng}&radius=300`
-                );
-                const data = (await response.json()) as Stop[];
-                setNearbyStops(data);
-            } catch (error) {
-                console.log('Error fetching nearby stops: ', error);
-            }
-        };
-
         if (user?.location) {
-            fetchNearbyStops();
+            fetchNearbyStops({
+                lat: user.location.lat,
+                lon: user.location.lng,
+            })
+                .then((stops) => {
+                    if (stops?.length) {
+                        setNearbyStops(stops);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching nearby stops: ', error);
+                });
         }
     }, [user?.location]);
 

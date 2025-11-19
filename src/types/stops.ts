@@ -3,7 +3,7 @@ export interface StopInfo {
     stop_name: string;
 }
 
-export interface Departure {
+export interface UpcomingDeparture {
     trip_id: string;
     route_id: string;
     route_short_name: string;
@@ -31,6 +31,6 @@ export interface RouteWithStops {
 
 export interface StopScheduleResponse {
     stop: StopInfo;
-    departures: Departure[];
+    upcomingDepartures: UpcomingDeparture[];
     routes: RouteWithStops[];
 }

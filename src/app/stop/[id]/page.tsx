@@ -1,20 +1,29 @@
 import { StopScheduleResponse } from '@/types/stops';
-import ScheduleCard from './ScheduleCard';
+import ScheduleCard from '../schedule/ScheduleCard';
 import RouteViewer from './RouteViewer';
-
-async function fetchStopSchedule(stopId: string): Promise<StopScheduleResponse> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stops/${stopId}/schedule`, {
-        next: { revalidate: 20 },
-    });
-    if (!res.ok) throw new Error('Failed to load stop');
-    return res.json();
-}
+import ScheduleList from '../schedule/ScheduleList';
+import { fetchSchedules } from '@/lib/queries/serverFunctions';
 
 type Props = { params: Promise<{ id: string }> };
 
 export default async function StopPage({ params }: Props) {
     const { id: stopId } = await params;
-    const data = await fetchStopSchedule(stopId);
+    const result = await fetchSchedules(stopId, 3);
+
+    if (!result.stop) {
+        return (
+            <div className="max-w-3xl mx-auto p-4">
+                <h1 className="text-3xl font-bold">Stop not found</h1>
+            </div>
+        );
+    }
+
+    // Transform the result to match StopScheduleResponse type
+    const data: StopScheduleResponse = {
+        stop: result.stop,
+        upcomingDepartures: result.upcomingDepartures || [],
+        routes: result.routes || [],
+    };
 
     return (
         <div className="max-w-3xl mx-auto p-4 space-y-8">
@@ -24,9 +33,7 @@ export default async function StopPage({ params }: Props) {
             <section>
                 <h2 className="text-xl font-semibold mb-3">Upcoming Departures</h2>
                 <div className="space-y-4">
-                    {data.departures.map((d) => (
-                        <ScheduleCard key={d.trip_id} departure={d} />
-                    ))}
+                    <ScheduleList upcomingDepartures={data.upcomingDepartures || []} stopId={stopId} />
                 </div>
             </section>
 
